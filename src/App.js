@@ -1,8 +1,8 @@
-import { Header } from "./components/startPage/Header/Header";
+import { StartPage } from "./components/StartPage/StartPage";
 import "./App.css";
 
 function App() {
-  return <Header />;
+  return <StartPage />;
 }
 
 export default App;

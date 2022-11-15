@@ -24,8 +24,11 @@ export const Header = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+      <Box sx={{ 
+        flexGrow: 1,
+        marginBottom: 15
+        }}>
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               size="large"
