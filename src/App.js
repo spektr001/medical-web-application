@@ -1,8 +1,8 @@
-import { StartPage } from "./components/StartPage/StartPage";
+import Routemap from "./components/RouteMap";
 import "./App.css";
 
 function App() {
-  return <StartPage />;
+  return <Routemap />;
 }
 
 export default App;

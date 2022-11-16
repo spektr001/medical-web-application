@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../../firebase-config";
+import { useNavigate } from 'react-router-dom'
 import { AppBar } from "@mui/material";
 import { Box } from "@mui/material";
 import { Toolbar } from "@mui/material";
@@ -23,6 +24,7 @@ export const Header = () => {
   const [registerPassword, setRegisterPassword] = React.useState("");
   const [loginEmail, setLoginEmail] = React.useState("");
   const [loginPassword, setLoginPassword] = React.useState("");
+  const navigate = useNavigate()
 
   const register = async () => {
     try {
@@ -47,6 +49,7 @@ export const Header = () => {
         loginPassword
       );
       setOpenLogin(false);
+      navigate('/dashboard')
     } catch (error) {
       alert("Помилка! Некоректний email або пароль.");
     }
