@@ -72,7 +72,7 @@ export const HeaderBar = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={logout}>Logout</MenuItem>
+        <MenuItem onClick={logout}>Вийти</MenuItem>
       </Menu>
     </>
   );
