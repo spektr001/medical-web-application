@@ -13,23 +13,25 @@ export const IndicatorsScreen = () => {
   const [i, setI] = React.useState("");
 
   const imt = () => {
-    setI(weight / Math.pow(height, 2));
+    setI((weight / Math.pow(height, 2)).toFixed(1));
   };
 
   const result = () => {
-    if (i.toFixed(1) < 18.5) {
+    if (i === "") {
+      return "";
+    } else if (i < 18.5) {
       return "Недостатня маса. Рекомендується покращити харчування.";
-    } else if (i.toFixed(1) < 18.5 && i.toFixed(1) > 24.9) {
+    } else if (i < 18.5 && i > 24.9) {
       return "Норма.";
-    } else if (i.toFixed(1) > 25.0) {
+    } else if (i > 25.0) {
       return "Надлишкова маса. Рекомендується переглянути раціон та звернути увагу на фізичні вправи.";
-    } else if (i.toFixed(1) < 25.0 && i.toFixed(1) > 29.9) {
+    } else if (i < 25.0 && i > 29.9) {
       return "Передожиріння. Рекомендується переглянути раціон та звернути увагу на фізичні вправи.";
-    } else if (i.toFixed(1) < 30.0 && i.toFixed(1) > 34.9) {
+    } else if (i < 30.0 && i > 34.9) {
       return "Ожиріння 1 ступеня. Рекомендується звернутися до дієтолога.";
-    } else if (i.toFixed(1) < 35.0 && i.toFixed(1) > 39.9) {
+    } else if (i < 35.0 && i > 39.9) {
       return "Ожиріння 2 ступеня. Рекомендується звернутися до дієтолога.";
-    } else if (i.toFixed(1) > 40.0) {
+    } else if (i > 40.0) {
       return "Ожиріння 3 ступеня. Небезпека для здоров'я. Рекомендується негайно звернутися до лікаря.";
     }
   };
@@ -130,11 +132,12 @@ export const IndicatorsScreen = () => {
             }}
           />
           <Button onClick={imt} color="inherit" variant="filled">
-            Вирахувати
+            Підрахувати
           </Button>
           <h3>
-            Результат: {i.toFixed(1)}. {result()}
+            Результат: {i}. {result()}
           </h3>
+          <Button variant="filled">Запам'ятати дані</Button>
         </Box>
       </Box>
     </>
