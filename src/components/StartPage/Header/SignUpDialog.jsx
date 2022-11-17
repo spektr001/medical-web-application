@@ -40,8 +40,12 @@ export const SignUpDialog = (props) => {
     }
   };
 
+  const data = {
+    healthStat: []
+  }
+
   const createUser = () => {
-    setDoc(doc(db, "healthDatabase", user.email), {});
+    setDoc(doc(db, "healthDatabase", user.email), data);
   };
 
   return (

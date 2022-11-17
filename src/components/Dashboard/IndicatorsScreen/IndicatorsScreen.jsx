@@ -1,4 +1,8 @@
 import * as React from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebase-config";
+import { db } from "../../../firebase-config";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
@@ -11,6 +15,26 @@ export const IndicatorsScreen = () => {
   const [height, setHeight] = React.useState("");
   const [weight, setWeight] = React.useState("");
   const [i, setI] = React.useState("");
+  const [user, setUser] = React.useState({});
+
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
+
+  const sendParams = async () => {
+    await updateDoc(doc(db, "healthDatabase", user.email), {
+      healthStat: arrayUnion({
+        pulse: Number(pulse),
+        hPressure: Number(hPressure),
+        lPressure: Number(lPressure),
+        height: Number(height),
+        weight: Number(weight),
+        imt: Number(i),
+      }),
+    });
+  };
 
   const imt = () => {
     setI((weight / Math.pow(height, 2)).toFixed(1));
@@ -135,9 +159,10 @@ export const IndicatorsScreen = () => {
             Підрахувати
           </Button>
           <h3>
-            Результат: {i}. {result()}
+            Результат: {i}
           </h3>
-          <Button variant="filled">Запам'ятати дані</Button>
+          <span>{result()}</span><br/>
+          <Button onClick={sendParams} variant="filled">Запам'ятати дані</Button>
         </Box>
       </Box>
     </>
