@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase-config";
 import { db } from "../../../firebase-config";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import moment from "moment";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
@@ -23,9 +24,19 @@ export const IndicatorsScreen = () => {
     });
   }, []);
 
+  const clearParams = () => {
+    setPulse("");
+    setHPressure("");
+    setLPressure("");
+    setHeight("");
+    setWeight("");
+    setI("");
+  };
+
   const sendParams = async () => {
     await updateDoc(doc(db, "healthDatabase", user.email), {
       healthStat: arrayUnion({
+        date: moment().format("D.MM.YYYY"),
         pulse: Number(pulse),
         hPressure: Number(hPressure),
         lPressure: Number(lPressure),
@@ -34,6 +45,7 @@ export const IndicatorsScreen = () => {
         imt: Number(i),
       }),
     });
+    alert("Дані успішно записано!");
   };
 
   const imt = () => {
@@ -79,6 +91,7 @@ export const IndicatorsScreen = () => {
         >
           <h2>Основні показники</h2>
           <TextField
+            value={pulse}
             onChange={(event) => {
               setPulse(event.target.value);
             }}
@@ -96,6 +109,7 @@ export const IndicatorsScreen = () => {
             }
           />
           <TextField
+            value={hPressure}
             onChange={(event) => {
               setHPressure(event.target.value);
             }}
@@ -114,6 +128,7 @@ export const IndicatorsScreen = () => {
           />
 
           <TextField
+            value={lPressure}
             onChange={(event) => {
               setLPressure(event.target.value);
             }}
@@ -134,6 +149,7 @@ export const IndicatorsScreen = () => {
         <Box>
           <h2>ІМТ (Індекс маси тіла)</h2>
           <TextField
+            value={weight}
             onChange={(event) => {
               setWeight(event.target.value);
             }}
@@ -145,6 +161,7 @@ export const IndicatorsScreen = () => {
             }}
           />
           <TextField
+            value={height}
             onChange={(event) => {
               setHeight(event.target.value);
             }}
@@ -158,11 +175,23 @@ export const IndicatorsScreen = () => {
           <Button onClick={imt} color="inherit" variant="filled">
             Підрахувати
           </Button>
-          <h3>
-            Результат: {i}
-          </h3>
-          <span>{result()}</span><br/>
-          <Button onClick={sendParams} variant="filled">Запам'ятати дані</Button>
+          <h3>Результат: {i}</h3>
+          <span>{result()}</span>
+          <br />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "20",
+            }}
+          >
+            <Button onClick={sendParams} variant="contained">
+              Записати дані
+            </Button>
+            <Button onClick={clearParams} variant="contained">
+              Очистити дані
+            </Button>
+          </Box>
         </Box>
       </Box>
     </>
