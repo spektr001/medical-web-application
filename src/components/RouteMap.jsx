@@ -7,7 +7,7 @@ const Routemap = () => {
   return (
     <Routes>
       <Route path="/" element={<StartPage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/*" element={<Dashboard />} />
     </Routes>
   );
 };

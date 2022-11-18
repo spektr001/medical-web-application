@@ -1,5 +1,7 @@
 import * as React from "react";
-import { useNavigate } from 'react-router-dom'
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebase-config";
+import { Link, useNavigate } from "react-router-dom";
 import { AppBar } from "@mui/material";
 import { Box } from "@mui/material";
 import { Toolbar } from "@mui/material";
@@ -13,7 +15,14 @@ import heartIcon from "../../../assets/images/heart.png";
 export const HeaderBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [user, setUser] = React.useState({});
+
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,8 +33,8 @@ export const HeaderBar = () => {
 
   const logout = () => {
     setAnchorEl(null);
-    navigate('/')
-  }
+    navigate("/");
+  };
 
   return (
     <>
@@ -72,6 +81,13 @@ export const HeaderBar = () => {
           "aria-labelledby": "basic-button",
         }}
       >
+        {user.email}
+        <Link to="/dashboard">
+          <MenuItem>Проаналізувати дані</MenuItem>
+        </Link>
+        <Link to="/dashboard/monitors">
+          <MenuItem>Архів</MenuItem>
+        </Link>
         <MenuItem onClick={logout}>Вийти</MenuItem>
       </Menu>
     </>
