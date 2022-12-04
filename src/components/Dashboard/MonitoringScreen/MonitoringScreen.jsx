@@ -10,21 +10,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { NeuralNetwork } from "../../../NN/snn";
 
 export const MonitoringScreen = () => {
   const [data, setData] = React.useState(["Loading..."]);
-
-  let design = [2, 4, 3, 2];
-  let brain = new NeuralNetwork(design);
-  for (let i = 0; i < 10000; i++) {
-    let num1 = Math.random();
-    let num2 = Math.random();
-    brain.train([num1, num2], num1 > num2 ? [1, 0] : [0, 1]);
-  }
-
-  let largest = brain.predict([10, 20]);
-  console.log(`Probability Score for Largest: ${largest}`);
 
   React.useEffect(() => {
     onAuthStateChanged(auth, async (currentUser) => {
