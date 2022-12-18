@@ -16,6 +16,7 @@ import crossIcon from "../../../assets/images/cross.png";
 export const SignUpDialog = (props) => {
   const [registerEmail, setRegisterEmail] = React.useState("");
   const [registerPassword, setRegisterPassword] = React.useState("");
+  const [age, setAge] = React.useState("");
   const [user, setUser] = React.useState({});
 
   React.useEffect(() => {
@@ -41,8 +42,9 @@ export const SignUpDialog = (props) => {
   };
 
   const data = {
-    healthStat: []
-  }
+    age: Number(age),
+    healthStat: [],
+  };
 
   const createUser = () => {
     setDoc(doc(db, "healthDatabase", user.email), data);
@@ -83,11 +85,24 @@ export const SignUpDialog = (props) => {
             setRegisterPassword(event.target.value);
           }}
           id="standard-basic"
-          label="Password"
+          label="Пароль"
           type="password"
           variant="standard"
           helperText="Щонайменше 6 символів"
         />
+        <br />
+        <TextField
+          onChange={(event) => {
+            setAge(event.target.value);
+          }}
+          id="outlined-number"
+          label="Вік"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
         <Button onClick={register} color="inherit" variant="outlined">
           Зареєструватися!
         </Button>

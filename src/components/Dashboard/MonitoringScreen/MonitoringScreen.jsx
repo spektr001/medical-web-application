@@ -39,12 +39,10 @@ export const MonitoringScreen = () => {
         <TableHead>
           <TableRow>
             <TableCell>Дата</TableCell>
-            <TableCell align="right">Пульс</TableCell>
-            <TableCell align="right">Верхній тиск</TableCell>
-            <TableCell align="right">Нижній тиск</TableCell>
-            <TableCell align="right">Ріст</TableCell>
-            <TableCell align="right">Вага</TableCell>
-            <TableCell align="right">ІМТ</TableCell>
+            <TableCell align="right">HGB</TableCell>
+            <TableCell align="right">MCH</TableCell>
+            <TableCell align="right">MCHC</TableCell>
+            <TableCell align="right">MCV</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,12 +54,10 @@ export const MonitoringScreen = () => {
               <TableCell component="th" scope="row">
                 {data.date}
               </TableCell>
-              <TableCell align="right">{data.pulse}</TableCell>
-              <TableCell align="right">{data.hPressure}</TableCell>
-              <TableCell align="right">{data.lPressure}</TableCell>
-              <TableCell align="right">{data.height}</TableCell>
-              <TableCell align="right">{data.weight}</TableCell>
-              <TableCell align="right">{data.imt}</TableCell>
+              <TableCell align="right">{data.hgb}</TableCell>
+              <TableCell align="right">{data.mch}</TableCell>
+              <TableCell align="right">{data.mchc}</TableCell>
+              <TableCell align="right">{data.mcv}</TableCell>
             </TableRow>
           ))}
         </TableBody>
