@@ -44,11 +44,12 @@ export const IndicatorsScreen = () => {
 
   return (
     <>
-      <h1 align="center">Давайте проаналізуємо ваші показники</h1>
+      <h1 align="center">Введіть ваші показники</h1>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-around",
+          alignItems: "center"
         }}
       >
         <Box
@@ -138,11 +139,10 @@ export const IndicatorsScreen = () => {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
-              marginTop: "20",
+              flexDirection: "column",
             }}
           >
-            <Button onClick={sendParams} variant="contained">
+            <Button sx={{marginBottom: 5}} onClick={sendParams} variant="contained">
               Записати дані
             </Button>
             <Button onClick={clearParams} variant="contained">

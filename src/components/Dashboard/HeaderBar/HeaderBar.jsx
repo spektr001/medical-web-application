@@ -83,10 +83,10 @@ export const HeaderBar = () => {
       >
         {user.email}
         <Link to="/dashboard">
-          <MenuItem>Ввести показники</MenuItem>
+          <MenuItem onClick={handleClose}>Ввести показники</MenuItem>
         </Link>
         <Link to="/dashboard/monitors">
-          <MenuItem>Результати</MenuItem>
+          <MenuItem onClick={handleClose}>Результати</MenuItem>
         </Link>
         <MenuItem onClick={logout}>Вийти</MenuItem>
       </Menu>

@@ -11,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 export const MonitoringScreen = () => {
   const [data, setData] = React.useState(["Loading..."]);
@@ -65,7 +66,16 @@ export const MonitoringScreen = () => {
         </TableBody>
       </Table>
     </TableContainer>
-    <NN />
+
+    <Box
+     sx={{
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+    }}>
+      <h1>Результати: </h1>
+      <NN />
+    </Box>
     </>
   );
 };

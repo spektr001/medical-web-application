@@ -145,10 +145,10 @@ export const NN = () => {
     },
   ]);
 
-  let output 
+  let output;
 
   if (data.length === 0) {
-    output = null
+    output = null;
   } else {
     output = net.run({
       gender: gender,
@@ -161,15 +161,20 @@ export const NN = () => {
 
   return (
     <Chip
-      label={data.length === 0 ? "Loading..." : getMaxProbability(Object.values(output))}
+      sx={{ marginLeft: 2 }}
+      label={
+        data.length === 0
+          ? "Loading..."
+          : getMaxProbability(Object.values(output))
+      }
       color={
-        data.length === 0 ? "primary" :
-        getMaxProbability(Object.values(output)) === "no anemia"
+        data.length === 0
+          ? "primary"
+          : getMaxProbability(Object.values(output)) === "no anemia"
           ? "success"
           : getMaxProbability(Object.values(output)) === "anemia"
           ? "error"
           : null
-          
       }
     />
   );
