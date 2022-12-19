@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NN } from "./NN";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase-config";
 import { db } from "../../../firebase-config";
@@ -34,6 +35,7 @@ export const MonitoringScreen = () => {
   }, []);
 
   return (
+    <>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -63,5 +65,7 @@ export const MonitoringScreen = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    <NN />
+    </>
   );
 };

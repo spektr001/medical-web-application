@@ -11,12 +11,25 @@ import { DialogTitle } from "@mui/material";
 import { Box } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import crossIcon from "../../../assets/images/cross.png";
+
+const currencies = [
+  {
+    value: "1",
+    label: "Чоловік",
+  },
+  {
+    value: "0",
+    label: "Жінка",
+  },
+];
 
 export const SignUpDialog = (props) => {
   const [registerEmail, setRegisterEmail] = React.useState("");
   const [registerPassword, setRegisterPassword] = React.useState("");
   const [age, setAge] = React.useState("");
+  const [gender, setGender] = React.useState("");
   const [user, setUser] = React.useState({});
 
   React.useEffect(() => {
@@ -43,11 +56,12 @@ export const SignUpDialog = (props) => {
 
   const data = {
     age: Number(age),
+    gender: Number(gender),
     healthStat: [],
   };
 
   const createUser = () => {
-    setDoc(doc(db, "healthDatabase", user.email), data);
+    setDoc(doc(db, "healthDatabase", localStorage.getItem("email")), data);
   };
 
   return (
@@ -102,6 +116,21 @@ export const SignUpDialog = (props) => {
             shrink: true,
           }}
         />
+        <br />
+        <TextField
+          onChange={(event) => {
+            setGender(event.target.value);
+          }}
+          id="outlined-select-currency"
+          select
+          label="Стать"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
         <Button onClick={register} color="inherit" variant="outlined">
           Зареєструватися!
