@@ -1,10 +1,11 @@
 import * as React from "react";
+import { anemiaDataset, heartDisDataset } from "./datasets";
 import { db } from "../../../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 import Chip from "@mui/material/Chip";
 let brain = require("brain.js");
 
-export const NN = () => {
+export const AnemiaDetect = () => {
   const [data, setData] = React.useState(["Loading..."]);
   const [gender, setGender] = React.useState(1);
 
@@ -36,114 +37,13 @@ export const NN = () => {
 
   const getMaxProbability = (output) => {
     if (output[0] > output[1]) {
-      return "no anemia";
+      return "Анемії не виявлено";
     } else {
-      return "anemia";
+      return "Виявлено анемію";
     }
   };
 
-  net.train([
-    {
-      input: {
-        gender: 1,
-        hgb: getCoefficient(15, 20, 5),
-        mch: getCoefficient(23, 30, 15),
-        mchc: getCoefficient(29, 40, 20),
-        mcv: getCoefficient(84, 110, 60),
-      },
-      output: { noanemia: 1 },
-    },
-    {
-      input: {
-        gender: 0,
-        hgb: getCoefficient(16, 20, 5),
-        mch: getCoefficient(25, 30, 15),
-        mchc: getCoefficient(28, 40, 20),
-        mcv: getCoefficient(72, 110, 60),
-      },
-      output: { noanemia: 1 },
-    },
-    {
-      input: {
-        gender: 0,
-        hgb: getCoefficient(9, 20, 5),
-        mch: getCoefficient(21, 30, 15),
-        mchc: getCoefficient(30, 40, 20),
-        mcv: getCoefficient(71, 110, 60),
-      },
-      output: { anemia: 1 },
-    },
-    {
-      input: {
-        gender: 0,
-        hgb: getCoefficient(15, 20, 5),
-        mch: getCoefficient(16, 30, 15),
-        mchc: getCoefficient(31, 40, 20),
-        mcv: getCoefficient(87, 110, 60),
-      },
-      output: { noanemia: 1 },
-    },
-    {
-      input: {
-        gender: 1,
-        hgb: getCoefficient(15, 20, 5),
-        mch: getCoefficient(22, 30, 15),
-        mchc: getCoefficient(28, 40, 20),
-        mcv: getCoefficient(99, 110, 60),
-      },
-      output: { noanemia: 1 },
-    },
-    {
-      input: {
-        gender: 1,
-        hgb: getCoefficient(13, 20, 5),
-        mch: getCoefficient(19, 30, 15),
-        mchc: getCoefficient(29, 40, 20),
-        mcv: getCoefficient(83, 110, 60),
-      },
-      output: { anemia: 1 },
-    },
-    {
-      input: {
-        gender: 0,
-        hgb: getCoefficient(11, 20, 5),
-        mch: getCoefficient(24, 30, 15),
-        mchc: getCoefficient(32, 40, 20),
-        mcv: getCoefficient(91, 110, 60),
-      },
-      output: { anemia: 1 },
-    },
-    {
-      input: {
-        gender: 0,
-        hgb: getCoefficient(15, 20, 5),
-        mch: getCoefficient(27, 30, 15),
-        mchc: getCoefficient(32, 40, 20),
-        mcv: getCoefficient(72, 110, 60),
-      },
-      output: { noanemia: 1 },
-    },
-    {
-      input: {
-        gender: 1,
-        hgb: getCoefficient(13, 20, 5),
-        mch: getCoefficient(26, 30, 15),
-        mchc: getCoefficient(28, 40, 20),
-        mcv: getCoefficient(77, 110, 60),
-      },
-      output: { anemia: 1 },
-    },
-    {
-      input: {
-        gender: 0,
-        hgb: getCoefficient(11, 20, 5),
-        mch: getCoefficient(28, 30, 15),
-        mchc: getCoefficient(31, 40, 20),
-        mcv: getCoefficient(86, 110, 60),
-      },
-      output: { anemia: 1 },
-    },
-  ]);
+  net.train(anemiaDataset);
 
   let output;
 
@@ -160,22 +60,102 @@ export const NN = () => {
   }
 
   return (
-    <Chip
-      sx={{ marginLeft: 2 }}
-      label={
-        data.length === 0
-          ? "Loading..."
-          : getMaxProbability(Object.values(output))
-      }
-      color={
-        data.length === 0
-          ? "primary"
-          : getMaxProbability(Object.values(output)) === "no anemia"
-          ? "success"
-          : getMaxProbability(Object.values(output)) === "anemia"
-          ? "error"
-          : null
-      }
-    />
+    <>
+      <Chip
+        sx={{ marginLeft: 2 }}
+        label={
+          data.length === 0
+            ? "Loading..."
+            : getMaxProbability(Object.values(output))
+        }
+        color={
+          data.length === 0
+            ? "primary"
+            : getMaxProbability(Object.values(output)) === "Анемії не виявлено"
+            ? "success"
+            : getMaxProbability(Object.values(output)) === "Виявлено анемію"
+            ? "error"
+            : null
+        }
+      />
+    </>
+  );
+};
+
+export const HeartDisDetect = () => {
+  const [data, setData] = React.useState(["Loading..."]);
+  const [gender, setGender] = React.useState(1);
+  const [age, setAge] = React.useState(18);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const querySnapshots = doc(
+        db,
+        "healthDatabase",
+        localStorage.getItem("email")
+      );
+      const mySnap = await getDoc(querySnapshots);
+      setData(mySnap.data().healthStat);
+      setGender(mySnap.data().gender);
+      setAge(mySnap.data().age);
+    }
+    fetchData();
+  }, []);
+
+  let net = new brain.NeuralNetwork();
+
+  const getCoefficient = (value, maxV, minV) => {
+    if (value > maxV) {
+      value = maxV;
+    } else if (value < minV) {
+      value = minV;
+    }
+
+    return value / maxV;
+  };
+
+  const getMaxProbability = (output) => {
+    if (output[0] > output[1]) {
+      return "Схильності до серцевих захворювань не зафіксовано";
+    } else {
+      return "Виявлено схильність до серцевих захворювань";
+    }
+  };
+
+  net.train(heartDisDataset);
+
+  let output;
+
+  if (data.length === 0) {
+    output = null;
+  } else {
+    output = net.run({
+      gender: gender,
+      age: getCoefficient(age, 80, 30),
+      bp: getCoefficient(data[data.length - 1].bp, 180, 90),
+      csl: getCoefficient(data[data.length - 1].csl, 570, 100),
+    });
+  }
+
+  return (
+    <>
+      <Chip
+        sx={{ marginLeft: 2 }}
+        label={
+          data.length === 0
+            ? "Loading..."
+            : getMaxProbability(Object.values(output))
+        }
+        color={
+          data.length === 0
+            ? "primary"
+            : getMaxProbability(Object.values(output)) === "Схильності до серцевих захворювань не зафіксовано"
+            ? "success"
+            : getMaxProbability(Object.values(output)) === "Виявлено схильність до серцевих захворювань"
+            ? "error"
+            : null
+        }
+      />
+    </>
   );
 };

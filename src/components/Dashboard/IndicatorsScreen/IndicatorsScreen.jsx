@@ -14,6 +14,8 @@ export const IndicatorsScreen = () => {
   const [mch, setMch] = React.useState("");
   const [mchc, setMchc] = React.useState("");
   const [mcv, setMcv] = React.useState("");
+  const [bp, setBp] = React.useState("");
+  const [csl, setCsl] = React.useState("");
   const [user, setUser] = React.useState({});
 
   React.useEffect(() => {
@@ -27,6 +29,8 @@ export const IndicatorsScreen = () => {
     setMch("");
     setMchc("");
     setMcv("");
+    setBp("");
+    setCsl();
   };
 
   const sendParams = async () => {
@@ -37,6 +41,8 @@ export const IndicatorsScreen = () => {
         mch: Number(mch),
         mchc: Number(mchc),
         mcv: Number(mcv),
+        bp: Number(bp),
+        csl: Number(csl),
       }),
     });
     alert("Дані успішно записано!");
@@ -49,7 +55,7 @@ export const IndicatorsScreen = () => {
         sx={{
           display: "flex",
           justifyContent: "space-around",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <Box
@@ -60,7 +66,6 @@ export const IndicatorsScreen = () => {
             "& .MuiTextField-root": { m: 1, width: "25ch" },
           }}
         >
-          <h2>Метрики крові</h2>
           <TextField
             value={hgb}
             onChange={(event) => {
@@ -92,7 +97,15 @@ export const IndicatorsScreen = () => {
             variant="outlined"
             helperText={"Концентрація гемоглобіну в еритроциті"}
           />
-
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
+          }}
+        >
           <TextField
             value={mcv}
             onChange={(event) => {
@@ -102,6 +115,26 @@ export const IndicatorsScreen = () => {
             label="MCV"
             variant="outlined"
             helperText={"Середній об'єм еритроцита"}
+          />
+          <TextField
+            value={bp}
+            onChange={(event) => {
+              setBp(event.target.value);
+            }}
+            id="outlined-basic"
+            label="BP"
+            variant="outlined"
+            helperText={"Кров'яний тиск"}
+          />
+          <TextField
+            value={csl}
+            onChange={(event) => {
+              setCsl(event.target.value);
+            }}
+            id="outlined-basic"
+            label="CSL"
+            variant="outlined"
+            helperText={"Рівень холестерину"}
           />
         </Box>
         <Box>
@@ -142,7 +175,11 @@ export const IndicatorsScreen = () => {
               flexDirection: "column",
             }}
           >
-            <Button sx={{marginBottom: 5}} onClick={sendParams} variant="contained">
+            <Button
+              sx={{ marginBottom: 5 }}
+              onClick={sendParams}
+              variant="contained"
+            >
               Записати дані
             </Button>
             <Button onClick={clearParams} variant="contained">
