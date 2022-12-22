@@ -1,4 +1,18 @@
 import * as React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+} from "recharts";
 import { AnemiaDetect, HeartDisDetect } from "./NN";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase-config";
@@ -70,6 +84,87 @@ export const MonitoringScreen = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "#fff",
+        }}
+      >
+        <LineChart
+          width={700}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          0.
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="hgb" stroke="#00FFFF" />
+          <Line type="monotone" dataKey="mch" stroke="#0000FF" />
+          <Line type="monotone" dataKey="mchc" stroke="#008000" />
+          <Line type="monotone" dataKey="mcv" stroke="#008080" />
+          <Line type="monotone" dataKey="bp" stroke="#CC0000" />
+          <Line type="monotone" dataKey="csl" stroke="#FFFF00" />
+        </LineChart>
+     
+        <RadarChart outerRadius={90} width={730} height={250} data={data}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="date" />
+          <PolarRadiusAxis angle={30} domain={[0, 150]} />
+          <Radar
+            name="HGB"
+            dataKey="hgb"
+            stroke="#00FFFF"
+            fill="#00FFFF"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="MCH"
+            dataKey="mch"
+            stroke="#0000FF"
+            fill="#0000FF"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="MCHC"
+            dataKey="mchc"
+            stroke="#008000"
+            fill="#008000"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="MCV"
+            dataKey="mcv"
+            stroke="#008080"
+            fill="#008080"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="BP"
+            dataKey="bp"
+            stroke="#CC0000"
+            fill="#CC0000"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="CSL"
+            dataKey="csl"
+            stroke="#FFFF00"
+            fill="#FFFF00"
+            fillOpacity={0.6}
+          />
+          <Legend />
+        </RadarChart>
+      </Box>
 
       <Box
         sx={{
