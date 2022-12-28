@@ -149,9 +149,11 @@ export const HeartDisDetect = () => {
         color={
           data.length === 0
             ? "primary"
-            : getMaxProbability(Object.values(output)) === "Схильності до серцевих захворювань не зафіксовано"
+            : getMaxProbability(Object.values(output)) ===
+              "Схильності до серцевих захворювань не зафіксовано"
             ? "success"
-            : getMaxProbability(Object.values(output)) === "Виявлено схильність до серцевих захворювань"
+            : getMaxProbability(Object.values(output)) ===
+              "Виявлено схильність до серцевих захворювань"
             ? "error"
             : null
         }

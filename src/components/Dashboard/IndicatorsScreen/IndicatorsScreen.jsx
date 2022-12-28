@@ -7,7 +7,6 @@ import moment from "moment";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
-import { InputAdornment } from "@mui/material";
 
 export const IndicatorsScreen = () => {
   const [hgb, setHgb] = React.useState("");
@@ -138,37 +137,6 @@ export const IndicatorsScreen = () => {
           />
         </Box>
         <Box>
-          {/* <h2>ІМТ (Індекс маси тіла)</h2>
-          <TextField
-            value={weight}
-            onChange={(event) => {
-              setWeight(event.target.value);
-            }}
-            id="outlined-basic"
-            label="Введіть вагу"
-            variant="outlined"
-            InputProps={{
-              endAdornment: <InputAdornment position="end">кг</InputAdornment>,
-            }}
-          />
-          <TextField
-            value={height}
-            onChange={(event) => {
-              setHeight(event.target.value);
-            }}
-            id="outlined-basic"
-            label="Введіть зріст"
-            variant="outlined"
-            InputProps={{
-              endAdornment: <InputAdornment position="end">м</InputAdornment>,
-            }}
-          /> */}
-          {/* <Button onClick={imt} color="inherit" variant="filled">
-            Підрахувати
-          </Button>
-          <h3>Результат: {i}</h3>
-          <span>{result()}</span>
-          <br /> */}
           <Box
             sx={{
               display: "flex",

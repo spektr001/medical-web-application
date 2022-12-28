@@ -61,7 +61,11 @@ export const Header = () => {
       </Box>
 
       <LoginDialog open={openLogin} updateLoginState={updateLoginState} />
-      <SignUpDialog open={openSignUp} updateSignUpState={updateSignUpState} updateLoginState={updateLoginState} />
+      <SignUpDialog
+        open={openSignUp}
+        updateSignUpState={updateSignUpState}
+        updateLoginState={updateLoginState}
+      />
     </>
   );
 };

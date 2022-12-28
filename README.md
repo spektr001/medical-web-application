@@ -1,7 +1,9 @@
 # medical-web-application
 ## Master thesis
 by *spectrum001*
-# status: in **progress**
+# status: **finished**
+# https://webpocketdoc.netlify.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -12,7 +12,16 @@ export const Footer = () => {
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             WebPocketDoc
           </Typography>
-          <span>by <a target="_blank" rel="noreferrer" href="https://github.com/spektr001">spectrum001</a></span> 
+          <span>
+            by{" "}
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://github.com/spektr001"
+            >
+              spectrum001
+            </a>
+          </span>
         </Toolbar>
       </AppBar>
     </Box>

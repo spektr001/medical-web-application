@@ -115,7 +115,7 @@ export const MonitoringScreen = () => {
           <Line type="monotone" dataKey="bp" stroke="#CC0000" />
           <Line type="monotone" dataKey="csl" stroke="#FFFF00" />
         </LineChart>
-     
+
         <RadarChart outerRadius={90} width={730} height={250} data={data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="date" />
